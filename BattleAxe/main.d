@@ -43,6 +43,7 @@ int main(){
 		glClear(GL_COLOR_BUFFER_BIT);
 		player.handleMovement();
 		player.renderPlayer();
+		player.renderGround();
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();

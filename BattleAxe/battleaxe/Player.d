@@ -12,7 +12,8 @@ class Player
 {
 	GLFWwindow *window;
 	int width, height;
-	float posX, posY, ratio;
+	float posX, posY, ratio, actualSpeed;
+	float speed = 66f;
 	this(GLFWwindow *window, int width, int height, float posX, float posY, float ratio)
 	{
 		this.window = window;
@@ -21,20 +22,22 @@ class Player
 		this.posX = posX;
 		this.posY = posY;
 		this.ratio = ratio;
+
+		this.actualSpeed = 1/speed;
 	}
 
 	public void handleMovement(){
 		if(glfwGetKey(window, GLFW_KEY_W)){
-			posY += 0.01f;
+			posY += actualSpeed;
 		}
 		if(glfwGetKey(window, GLFW_KEY_S)){
-			posY -= 0.01f;
+			posY -= actualSpeed;
 		}
 		if(glfwGetKey(window, GLFW_KEY_A)){
-			posX -= 0.01f;
+			posX -= actualSpeed;
 		}
 		if(glfwGetKey(window, GLFW_KEY_D)){
-			posX += 0.01f;
+			posX += actualSpeed;
 		}
 	}
 
@@ -49,13 +52,15 @@ class Player
 		
 		glTranslatef(posX, posY, posY);
 		
-		glBegin(GL_TRIANGLES);
+		glBegin(GL_QUADS);
 		glColor3f(1.0f, 0.0f, 0.0f);
-		glVertex2f(-0.15f, -0.1f);
+		glVertex2f(0f, 0f);
 		glColor3f(0.0f, 1.0f, 0.0f);
-		glVertex2f(0.15f, -0.1f);
+		glVertex2f(0.1f, 0f);
 		glColor3f(0.0f, 0.0f, 1.0f);
-		glVertex2f(0.0f, 0.15f);
+		glVertex2f(0.1f, 0.2f);
+		glColor3f(1.0f, 0.0f, 1.0f);
+		glVertex2f(0f, 0.2f);
 		glEnd();
 	}
 }

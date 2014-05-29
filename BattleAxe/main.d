@@ -13,7 +13,7 @@ pragma(lib, "DerelictUtil");
 pragma(lib, "DerelictGl3");
 pragma(lib, "DerelictGLFW3");
 
-int main () {
+int main(){
 	
 	DerelictGLFW3.load();
 	DerelictGL3.load();
@@ -23,8 +23,8 @@ int main () {
 	int width;
 	int height;
 	glfwGetFramebufferSize(window, &width, &height);
-	float posX = -width/1000;
-	float posY = height/500;
+	float posX = (-width/1000) - 0.2;
+	float posY = (height/500) - 0.2;
 	float ratio = width / cast(float)height;
 
 	glfwMakeContextCurrent(window);

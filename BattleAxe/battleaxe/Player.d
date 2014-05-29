@@ -2,8 +2,6 @@
 
 import std.stdio;
 import core.stdc.stdlib;
-import Headers.Horde3D;
-import Headers.Horde3DUtils;
 import derelict.glfw3.glfw3;
 import derelict.opengl3.gl3;
 import derelict.opengl3.gl;
@@ -34,15 +32,17 @@ class Player
 			posY += 0.001;
 			}
 		}
-		if(glfwGetKey(window, GLFW_KEY_S)){
+		if(glfwGetKey(window, GLFW_KEY_S) || glfwGetKey(window, GLFW_KEY_DOWN)){
 			if(this.isGrounded() == false){
 				posY -= actualSpeed;
 			}
 		}
-		if(glfwGetKey(window, GLFW_KEY_A)){
+		if(glfwGetKey(window, GLFW_KEY_A) || glfwGetKey(window, GLFW_KEY_LEFT)){
+			if(this.isCollidingWithLeftWall == false){
 			posX -= actualSpeed;
+			}
 		}
-		if(glfwGetKey(window, GLFW_KEY_D)){
+		if(glfwGetKey(window, GLFW_KEY_D) || glfwGetKey(window, GLFW_KEY_RIGHT)){
 			posX += actualSpeed;
 		}
 		if(this.isGrounded() == false){
@@ -73,7 +73,7 @@ class Player
 		glVertex2f(0f, 0.2f);
 		glEnd();
 	}
-	public void renderGround(){
+	public void renderGround1(){
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		glOrtho(-ratio, ratio, -1.0f, 1.0f, 1.0f, -1.0f);
@@ -90,12 +90,36 @@ class Player
 		glVertex2f(0f, 0.55f);
 		glEnd();
 	}
+	public void renderGround2(){
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		glOrtho(-ratio, ratio, -1.0f, 1.0f, 1.0f, -1.0f);
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+		
+		glTranslatef(-1.35f, -1.0f + 0.55f, -1.0f + 0.55f);
+		
+		glBegin(GL_QUADS);
+		glColor3f(1.0f, 1.0f, 0.0f);
+		glVertex2f(0f, 0f);
+		glVertex2f(1.3f, 0f);
+		glVertex2f(1.3f, 0.55f);
+		glVertex2f(0f, 0.55f);
+		glEnd();
+	}
 
 	public bool isGrounded(){
-		if(posY > -0.4){
+		if((posY > -0.4 && posX > -0.05) || (posY > 0.1 && posX < -0.05)){
 			return false;
 		}else{
 			return true;
+		}
+	}
+	public bool isCollidingWithLeftWall(){
+		if(posX < -0.05 && posY < 0.08){
+			return true;
+		}else{
+			return false;
 		}
 	}
 }

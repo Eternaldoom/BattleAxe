@@ -2,8 +2,6 @@
 
 import std.stdio;
 import core.stdc.stdlib;
-import Headers.Horde3D;
-import Headers.Horde3DUtils;
 import derelict.glfw3.glfw3;
 import derelict.opengl3.gl3;
 import derelict.opengl3.gl;
@@ -36,14 +34,14 @@ int main(){
 	DerelictGL.load();
 
 	auto player = new Player(window, width, height, posX, posY, ratio);
-
 	while(!glfwWindowShouldClose(window)){
 		glfwGetFramebufferSize(window, &width, &height);
 		glViewport(0, 0, width, height);
 		glClear(GL_COLOR_BUFFER_BIT);
 		player.handleMovement();
 		player.renderPlayer();
-		player.renderGround();
+		player.renderGround1();
+		player.renderGround2();
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();

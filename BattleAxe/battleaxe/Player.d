@@ -5,7 +5,7 @@ import core.stdc.stdlib;
 import derelict.glfw3.glfw3;
 import derelict.opengl3.gl3;
 import derelict.opengl3.gl;
-import battleaxe.ShapeAPI;
+import battleaxe.Box;
 
 class Player
 {
@@ -27,15 +27,10 @@ class Player
 		this.actualSpeed = 1/speed;
 	}
 
-	public void handleMovement(){
+	public void handleControls(Box box){
 		if(glfwGetKey(window, GLFW_KEY_SPACE) && this.isGrounded == true){
 			for(int o = 0; o < 200; o++){
 			posY += 0.001;
-			}
-		}
-		if(glfwGetKey(window, GLFW_KEY_S) || glfwGetKey(window, GLFW_KEY_DOWN)){
-			if(this.isGrounded() == false){
-				posY -= actualSpeed;
 			}
 		}
 		if(glfwGetKey(window, GLFW_KEY_A) || glfwGetKey(window, GLFW_KEY_LEFT)){
@@ -46,9 +41,11 @@ class Player
 		if(glfwGetKey(window, GLFW_KEY_D) || glfwGetKey(window, GLFW_KEY_RIGHT)){
 			posX += actualSpeed;
 		}
+	}
+	public void handleGravity(){
 		if(this.isGrounded() == false){
-		downspeed += gravity;
-		posY -= downspeed;
+			downspeed += gravity;
+			posY -= downspeed;
 		}else{downspeed = 0;}
 	}
 
@@ -73,12 +70,6 @@ class Player
 		glColor3f(1.0f, 0.0f, 1.0f);
 		glVertex2f(0f, 0.2f);
 		glEnd();
-	}
-	public void renderGround1(){
-		addBox(-1.35f, -1.0f, 2.7f, 0.55f, cyan, ratio);
-	}
-	public void renderGround2(){
-		addBox(-1.35f, -0.45f, 1.3f, 0.55f, yellow, ratio);
 	}
 
 	public bool isGrounded(){

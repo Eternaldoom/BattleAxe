@@ -6,6 +6,7 @@ import derelict.glfw3.glfw3;
 import derelict.opengl3.gl3;
 import derelict.opengl3.gl;
 import battleaxe.Player;
+import battleaxe.Box;
 
 pragma(lib, "DerelictUtil");
 pragma(lib, "DerelictGl3");
@@ -38,10 +39,16 @@ int main(){
 		glfwGetFramebufferSize(window, &width, &height);
 		glViewport(0, 0, width, height);
 		glClear(GL_COLOR_BUFFER_BIT);
-		player.handleMovement();
 		player.renderPlayer();
-		player.renderGround1();
-		player.renderGround2();
+		player.handleGravity();
+
+		auto box1 = new Box(-1.35f, -1.0f, 2.7f, 0.55f, cyan, ratio);
+		box1.addBox();
+		player.handleControls(box1);
+
+		auto box2 = new Box(-1.35f, -0.45f, 1.3f, 0.55f, yellow, ratio);
+		box2.addBox();
+		player.handleControls(box2);
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();

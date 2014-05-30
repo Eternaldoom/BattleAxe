@@ -53,7 +53,7 @@
   <ItemGroup>
     <Compile Include="main.d" />
     <Compile Include="battleaxe\Player.d" />
-    <Compile Include="battleaxe\ShapeAPI.d" />
+    <Compile Include="battleaxe\Box.d" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="battleaxe\" />

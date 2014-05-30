@@ -1,4 +1,4 @@
-﻿module battleaxe.ShapeAPI;
+﻿module battleaxe.Box;
 
 import std.stdio;
 import core.stdc.stdlib;
@@ -13,8 +13,21 @@ char[6] purple = "purple";
 char[3] red = "red";
 char[5] green = "green";
 
+class Box{
+	
+	public float xPos, yPos, width, height, ratio;
+	char[] color;
 
-public void addBox(float xPos, float yPos, float width, float height, char[] color, float ratio){
+	this(float xPos, float yPos, float width, float height, char[] color, float ratio){
+		this.xPos = xPos;
+		this.yPos = yPos;
+		this.width = width;
+		this.height = height;
+		this.color = color;
+		this.ratio = ratio;
+	}
+
+public void addBox(){
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(-ratio, ratio, -1.0f, 1.0f, 1.0f, -1.0f);
@@ -37,4 +50,5 @@ public void addBox(float xPos, float yPos, float width, float height, char[] col
 	glVertex2f(width, height);
 	glVertex2f(0f, height);
 	glEnd();
+}
 }

@@ -5,6 +5,7 @@ import core.stdc.stdlib;
 import derelict.glfw3.glfw3;
 import derelict.opengl3.gl3;
 import derelict.opengl3.gl;
+import battleaxe.ShapeAPI;
 
 class Player
 {
@@ -74,38 +75,10 @@ class Player
 		glEnd();
 	}
 	public void renderGround1(){
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		glOrtho(-ratio, ratio, -1.0f, 1.0f, 1.0f, -1.0f);
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
-
-		glTranslatef(-1.35f, -1.0f, -1.0f);
-
-		glBegin(GL_QUADS);
-		glColor3f(0.0f, 1.0f, 1.0f);
-		glVertex2f(0f, 0f);
-		glVertex2f(2.7f, 0f);
-		glVertex2f(2.7f, 0.55f);
-		glVertex2f(0f, 0.55f);
-		glEnd();
+		addBox(-1.35f, -1.0f, 2.7f, 0.55f, cyan, ratio);
 	}
 	public void renderGround2(){
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		glOrtho(-ratio, ratio, -1.0f, 1.0f, 1.0f, -1.0f);
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
-		
-		glTranslatef(-1.35f, -1.0f + 0.55f, -1.0f + 0.55f);
-		
-		glBegin(GL_QUADS);
-		glColor3f(1.0f, 1.0f, 0.0f);
-		glVertex2f(0f, 0f);
-		glVertex2f(1.3f, 0f);
-		glVertex2f(1.3f, 0.55f);
-		glVertex2f(0f, 0.55f);
-		glEnd();
+		addBox(-1.35f, -0.45f, 1.3f, 0.55f, yellow, ratio);
 	}
 
 	public bool isGrounded(){

@@ -18,7 +18,7 @@ class Box{
 	public float xPos, yPos, width, height, ratio;
 	char[] color;
 
-	this(float xPos, float yPos, float width, float height, char[] color, float ratio){
+	this(float xPos, float yPos, float width, float height, char[] color){
 		this.xPos = xPos;
 		this.yPos = yPos;
 		this.width = width;
@@ -30,7 +30,6 @@ class Box{
 public void addBox(){
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(-ratio, ratio, -1.0f, 1.0f, 1.0f, -1.0f);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 

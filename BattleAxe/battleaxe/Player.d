@@ -11,12 +11,12 @@ import main;
 class Player
 {
 	GLFWwindow *window;
-	int width, height;
-	float posX, posY, actualSpeed, ratio;
+	float width, height;
+	float posX, posY, actualSpeed;
 	float speed = 66f;
 	float downspeed = 0;
 	float gravity = 0.000979;
-	this(GLFWwindow *window, int width, int height, float posX, float posY, float ratio)
+	this(GLFWwindow *window, float width, float height, float posX, float posY)
 	{
 		this.window = window;
 		this.width = width;
@@ -24,7 +24,6 @@ class Player
 		this.posX = posX;
 		this.posY = posY;
 		this.actualSpeed = 1/speed;
-		this.ratio = ratio;
 	}
 
 	public void handleControls(){
@@ -34,14 +33,19 @@ class Player
 			}
 		}
 		if(glfwGetKey(window, GLFW_KEY_A) || glfwGetKey(window, GLFW_KEY_LEFT)){
-			if(this.isCollidingWithLeftWall == false){
+			if(this.isCollidingWithLeftWall(box1) == false && this.isCollidingWithLeftWall(box2) == false){
 			posX -= actualSpeed;
+			screenX += 10;
 			}
 		}
 		if(glfwGetKey(window, GLFW_KEY_D) || glfwGetKey(window, GLFW_KEY_RIGHT)){
+			if(this.isCollidingWithRightWall(box1) == false && this.isCollidingWithRightWall(box2) == false){
 			posX += actualSpeed;
+			screenX -= 10;
+			}
 		}
 	}
+
 	public void handleGravity(){
 		if(this.isGrounded(box1) == false && this.isGrounded(box2) == false){
 			downspeed += gravity;
@@ -53,32 +57,36 @@ class Player
 
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		glOrtho(-ratio, ratio, -1.0f, 1.0f, 1.0f, -1.0f);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-		//glRotatef(cast(float)glfwGetTime() * 50.0f, 0.0f, 0.0f, 1.0f);
-		
+
 		glTranslatef(posX, posY, posY);
-		
+
 		glBegin(GL_QUADS);
 		glColor3f(1.0f, 0.0f, 0.0f);
 		glVertex2f(0f, 0f);
 		glColor3f(0.0f, 1.0f, 0.0f);
-		glVertex2f(0.1f, 0f);
+		glVertex2f(width, 0f);
 		glColor3f(0.0f, 0.0f, 1.0f);
-		glVertex2f(0.1f, 0.2f);
+		glVertex2f(width, height);
 		glColor3f(1.0f, 0.0f, 1.0f);
-		glVertex2f(0f, 0.2f);
+		glVertex2f(0f, height);
 		glEnd();
 	}
-
 	public bool isGrounded(Box ground){
-		if((posY > ground.yPos + ground.height) && (posX > ground.xPos || posX < ground.xPos + ground.width)){
+		if((posY > ground.yPos + ground.height || posY < ground.yPos) || (posX + 0.1 < ground.xPos || posX > ground.xPos + ground.width)){
 			return false;
 		}else{return true;}
 	}
-	public bool isCollidingWithLeftWall(){
-		if(posX < -0.05 && posY < 0.08){
+	public bool isCollidingWithLeftWall(Box wall){
+		if(posX < wall.xPos+wall.width && posX > wall.xPos && posY < wall.yPos + wall.height - 0.025f && posY > wall.yPos - 0.025){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	public bool isCollidingWithRightWall(Box wall){
+		if(posX + 0.1 > wall.xPos && posX < wall.xPos + wall.width - 0.1 && posY < wall.yPos + wall.height - 0.025f && posY > wall.yPos - 0.025){
 			return true;
 		}else{
 			return false;

@@ -12,7 +12,9 @@ pragma(lib, "DerelictUtil");
 pragma(lib, "DerelictGl3");
 pragma(lib, "DerelictGLFW3");
 
-Box box1, box2;
+Box background, box1, box2;
+int screenX = 0;
+int screenY = 0;
 
 int main(){
 	
@@ -24,8 +26,8 @@ int main(){
 	int width;
 	int height;
 	glfwGetFramebufferSize(window, &width, &height);
-	float posX = -1.2f;
-	float posY = 0.5f;
+	float playerX = 0f;
+	float playerY = 0.5f;
 	float ratio = width / cast(float)height;
 
 	glfwMakeContextCurrent(window);
@@ -36,16 +38,21 @@ int main(){
 	DerelictGLFW3.load();
 	DerelictGL.load();
 
-	auto player = new Player(window, width, height, posX, posY, ratio);
+	auto player = new Player(window, 0.1, 0.2, playerX, playerY);
 
-	box1 = new Box(-1.35f, -1.0f, 2.7f, 0.55f, cyan);
+	//background = new Box(-10f, -10f, 200f, 200f, blue);
+
+	box1 = new Box(-1f, -1f, 2f, 0.55f, cyan);
 	
-	box2 = new Box(-1.35f, -0.45f, 1.3f, 0.55f, yellow);
+	box2 = new Box(-0.5f, -0.45f, 1f, 0.55f, yellow);
 
 	while(!glfwWindowShouldClose(window)){
 		glfwGetFramebufferSize(window, &width, &height);
-		glViewport(0, 0, width, height);
+		glViewport(screenX, screenY, width, height);
 		glClear(GL_COLOR_BUFFER_BIT);
+
+		//background.addBox();
+
 		player.renderPlayer();
 		player.handleControls();
 		player.handleGravity();

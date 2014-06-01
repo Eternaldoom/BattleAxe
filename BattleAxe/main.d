@@ -42,7 +42,7 @@ int main(){
 
 	auto player = new Player(window, 0.1, 0.2, playerX, playerY);
 
-	background = new Box(-10f, -10f, 200f, 200f, blue);
+	background = new Box(-1f, -1f, 2f, 2f, sky);
 
 	box1 = new Box(0.5f, -1f, 2f, 0.55f, cyan);
 	
@@ -52,7 +52,7 @@ int main(){
 		glViewport(0, 0, width, height);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		//background.addBox();
+		background.addStaticBox();
 
 		player.renderPlayer();
 		player.handleControls();

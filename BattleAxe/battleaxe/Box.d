@@ -12,6 +12,7 @@ char[4] blue = "blue";
 char[4] cyan = "cyan";
 char[6] purple = "purple";
 char[3] red = "red";
+char[3] sky = "sky";
 char[5] green = "green";
 
 class Box{
@@ -43,6 +44,7 @@ public void addBox(){
 	else if(color == "blue"){ glColor3f(0.0f, 0.0f, 1.0f);}
 	else if(color == "cyan"){ glColor3f(0.0f, 1.0f, 1.0f);}
 	else if(color == "purple"){ glColor3f(1.0f, 0.0f, 1.0f);}
+	else if(color == "sky"){ glColor3f(0.0f, 0.5f, 1.0f);}
 	else if(color == "yellow"){ glColor3f(1.0f, 1.0f, 0.0f);}else{}
 
 	glVertex2f(0f, 0f);
@@ -51,4 +53,29 @@ public void addBox(){
 	glVertex2f(0f, height);
 	glEnd();
 }
+
+public void addStaticBox(){
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+		
+		glTranslatef(xPos, yPos, yPos);
+		
+		glBegin(GL_QUADS);
+		
+		if(color == "red"){ glColor3f(1.0f, 0.0f, 1.0f);}
+		else if(color == "green"){ glColor3f(0.0f, 1.0f, 0.0f);}
+		else if(color == "blue"){ glColor3f(0.0f, 0.0f, 1.0f);}
+		else if(color == "cyan"){ glColor3f(0.0f, 1.0f, 1.0f);}
+		else if(color == "purple"){ glColor3f(1.0f, 0.0f, 1.0f);}
+		else if(color == "sky"){ glColor3f(0.0f, 0.5f, 1.0f);}
+		else if(color == "yellow"){ glColor3f(1.0f, 1.0f, 0.0f);}else{}
+		
+		glVertex2f(0f, 0f);
+		glVertex2f(width, 0f);
+		glVertex2f(width, height);
+		glVertex2f(0f, height);
+		glEnd();
+	}
 }

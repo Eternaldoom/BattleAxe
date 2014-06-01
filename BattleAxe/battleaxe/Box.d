@@ -5,6 +5,7 @@ import core.stdc.stdlib;
 import derelict.glfw3.glfw3;
 import derelict.opengl3.gl3;
 import derelict.opengl3.gl;
+import main;
 
 char[6] yellow = "yellow";
 char[4] blue = "blue";
@@ -33,7 +34,7 @@ public void addBox(){
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	glTranslatef(xPos, yPos, yPos);
+	glTranslatef(xPos+masterX, yPos, yPos);
 
 	glBegin(GL_QUADS);
 

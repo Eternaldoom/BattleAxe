@@ -34,14 +34,14 @@ class Player
 		}
 		if(glfwGetKey(window, GLFW_KEY_A) || glfwGetKey(window, GLFW_KEY_LEFT)){
 			if(this.isCollidingWithLeftWall(box1) == false && this.isCollidingWithLeftWall(box2) == false){
-			posX -= actualSpeed;
-			screenX += 10;
+			//posX -= actualSpeed;
+			masterX += actualSpeed;
 			}
 		}
 		if(glfwGetKey(window, GLFW_KEY_D) || glfwGetKey(window, GLFW_KEY_RIGHT)){
 			if(this.isCollidingWithRightWall(box1) == false && this.isCollidingWithRightWall(box2) == false){
-			posX += actualSpeed;
-			screenX -= 10;
+			//posX += actualSpeed;
+			masterX -= actualSpeed;
 			}
 		}
 	}
@@ -74,19 +74,19 @@ class Player
 		glEnd();
 	}
 	public bool isGrounded(Box ground){
-		if((posY > ground.yPos + ground.height || posY < ground.yPos) || (posX + 0.1 < ground.xPos || posX > ground.xPos + ground.width)){
+		if((posY > ground.yPos + ground.height || posY < ground.yPos) || (posX + 0.1 < ground.xPos+masterX|| posX > ground.xPos+ground.width+masterX)){
 			return false;
 		}else{return true;}
 	}
 	public bool isCollidingWithLeftWall(Box wall){
-		if(posX < wall.xPos+wall.width && posX > wall.xPos && posY < wall.yPos + wall.height - 0.025f && posY > wall.yPos - 0.025){
+		if(posX < wall.xPos+wall.width+masterX && posX > wall.xPos+masterX && posY < wall.yPos + wall.height - 0.025f && posY > wall.yPos - 0.025){
 			return true;
 		}else{
 			return false;
 		}
 	}
 	public bool isCollidingWithRightWall(Box wall){
-		if(posX + 0.1 > wall.xPos && posX < wall.xPos + wall.width - 0.1 && posY < wall.yPos + wall.height - 0.025f && posY > wall.yPos - 0.025){
+		if(posX + 0.1 > wall.xPos+masterX && posX < wall.xPos+wall.width-0.1+masterX && posY < wall.yPos + wall.height - 0.025f && posY > wall.yPos - 0.025){
 			return true;
 		}else{
 			return false;

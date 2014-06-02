@@ -11,12 +11,13 @@ import main;
 class Player
 {
 	GLFWwindow *window;
-	float width, height;
-	float posX, posY, actualSpeed;
+	float width, height, posX, posY, actualSpeed, ratio;
 	float speed = 66f;
 	float downspeed = 0;
 	float gravity = 0.000979;
-	this(GLFWwindow *window, float width, float height, float posX, float posY)
+	public bool isDead = false;
+	int health = 100;
+	this(GLFWwindow *window, float width, float height, float posX, float posY, float ratio)
 	{
 		this.window = window;
 		this.width = width;
@@ -24,6 +25,7 @@ class Player
 		this.posX = posX;
 		this.posY = posY;
 		this.actualSpeed = 1/speed;
+		this.ratio = ratio;
 	}
 
 	public void handleControls(){
@@ -34,23 +36,37 @@ class Player
 		}
 		if(glfwGetKey(window, GLFW_KEY_A) || glfwGetKey(window, GLFW_KEY_LEFT)){
 			if(this.isCollidingWithLeftWall(box1) == false && this.isCollidingWithLeftWall(box2) == false){
-			//posX -= actualSpeed;
-			masterX += actualSpeed;
+				if(posX < -0.35){
+					masterX += actualSpeed;
+				}else{
+					posX -= actualSpeed;
 			}
+		}
 		}
 		if(glfwGetKey(window, GLFW_KEY_D) || glfwGetKey(window, GLFW_KEY_RIGHT)){
 			if(this.isCollidingWithRightWall(box1) == false && this.isCollidingWithRightWall(box2) == false){
-			//posX += actualSpeed;
-			masterX -= actualSpeed;
+				if(posX+0.1 > 0.35){
+					masterX -= actualSpeed;
+					}else{
+						posX += actualSpeed;
+				}
 			}
 		}
-	}
+		}
 
 	public void handleGravity(){
 		if(this.isGrounded(box1) == false && this.isGrounded(box2) == false){
 			downspeed += gravity;
-			posY -= downspeed;
-		}else{downspeed = 0;}
+
+			if(posY < -0.5){
+				masterY += downspeed;
+				health -= 1;
+			}else{
+				posY -= downspeed;
+			}
+		}else{
+			downspeed = 0;
+		}
 	}
 
 	public void renderPlayer(){
@@ -58,8 +74,8 @@ class Player
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
 
+		glLoadIdentity();
 		glTranslatef(posX, posY, posY);
 
 		glBegin(GL_QUADS);
@@ -90,6 +106,27 @@ class Player
 			return true;
 		}else{
 			return false;
+		}
+	}
+
+	public void setDead(){
+		isDead = true;
+	}
+
+	public void respawn(){
+		isDead = false;
+	}
+
+	public void handleDeath(){
+	if(isDead == true){
+			glBegin(GL_QUADS);
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			glColor3i(0, 0, 0);
+			glVertex2i(-1, -1);
+			glVertex2i(-1, 2);
+			glVertex2i(2, 2);
+			glVertex2i(2, -1);
 		}
 	}
 }

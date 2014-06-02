@@ -20,7 +20,7 @@ class Box{
 	public float xPos, yPos, width, height, ratio;
 	char[] color;
 
-	this(float xPos, float yPos, float width, float height, char[] color){
+	this(float xPos, float yPos, float width, float height, float ratio, char[] color){
 		this.xPos = xPos;
 		this.yPos = yPos;
 		this.width = width;
@@ -33,9 +33,9 @@ public void addBox(){
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glMatrixMode(GL_MODELVIEW);
+	
 	glLoadIdentity();
-
-	glTranslatef(xPos+masterX, yPos, yPos);
+	glTranslatef(xPos+masterX, yPos+masterY, yPos+masterY);
 
 	glBegin(GL_QUADS);
 
@@ -58,8 +58,8 @@ public void addStaticBox(){
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		glMatrixMode(GL_MODELVIEW);
+
 		glLoadIdentity();
-		
 		glTranslatef(xPos, yPos, yPos);
 		
 		glBegin(GL_QUADS);

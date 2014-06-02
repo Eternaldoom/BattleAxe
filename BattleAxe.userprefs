@@ -1,10 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="BattleAxe/battleaxe/Player.d">
+  <MonoDevelop.Ide.Workbench ActiveDocument="BattleAxe/main.d">
     <Files>
-      <File FileName="BattleAxe/main.d" Line="17" Column="25" />
-      <File FileName="BattleAxe/battleaxe/Player.d" Line="36" Column="6" />
-      <File FileName="BattleAxe/battleaxe/Box.d" Line="37" Column="27" />
+      <File FileName="BattleAxe/main.d" Line="62" Column="5" />
+      <File FileName="BattleAxe/battleaxe/Player.d" Line="21" Column="2" />
+      <File FileName="BattleAxe/battleaxe/Box.d" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

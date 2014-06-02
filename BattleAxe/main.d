@@ -15,6 +15,7 @@ pragma(lib, "DerelictGLFW3");
 public Box background, box1, box2;
 
 public float masterX = 0;
+public float masterY = 0;
 
 int main(){
 	
@@ -23,11 +24,7 @@ int main(){
 	glfwInit();
 	
 	auto window = glfwCreateWindow(640, 480, "BattleAxe", null, null);
-	int width;
-	int height;
-
-	glfwGetFramebufferSize(window, &width, &height);
-
+	int width, height;
 	float playerX = 0f;
 	float playerY = 0.5f;
 	float ratio = width / cast(float)height;
@@ -40,15 +37,16 @@ int main(){
 	DerelictGLFW3.load();
 	DerelictGL.load();
 
-	auto player = new Player(window, 0.1, 0.2, playerX, playerY);
+	auto player = new Player(window, 0.1, 0.2, playerX, playerY, ratio);
 
-	background = new Box(-1f, -1f, 2f, 2f, sky);
+	background = new Box(-1f, -1f, 2f, 2f, ratio, sky);
 
-	box1 = new Box(0.5f, -1f, 2f, 0.55f, cyan);
+	box1 = new Box(0.5f, -1f, 2f, 0.55f, ratio, cyan);
 	
-	box2 = new Box(-0.5f, -0.45f, 1f, 0.55f, yellow);
+	box2 = new Box(-0.5f, -0.45f, 1f, 0.55f, ratio, yellow);
 
 	while(!glfwWindowShouldClose(window)){
+		glfwGetFramebufferSize(window, &width, &height);
 		glViewport(0, 0, width, height);
 		glClear(GL_COLOR_BUFFER_BIT);
 
@@ -60,6 +58,15 @@ int main(){
 
 		box1.addBox();
 		box2.addBox();
+
+		//player.handleDeath();
+
+		if(player.health < 1){
+			player.setDead();
+		}else{
+			player.respawn();
+		}
+
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();

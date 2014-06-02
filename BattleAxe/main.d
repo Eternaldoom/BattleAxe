@@ -5,12 +5,15 @@ import core.stdc.stdlib;
 import derelict.glfw3.glfw3;
 import derelict.opengl3.gl3;
 import derelict.opengl3.gl;
+import derelict.sdl2.sdl;
+import derelict.sdl2.image;
 import battleaxe.Player;
 import battleaxe.Box;
 
 pragma(lib, "DerelictUtil");
 pragma(lib, "DerelictGl3");
 pragma(lib, "DerelictGLFW3");
+pragma(lib, "DerelictSDL2");
 
 public Box background, box1, box2;
 
@@ -21,7 +24,11 @@ int main(){
 	
 	DerelictGLFW3.load();
 	DerelictGL3.load();
+	DerelictSDL2Image.load();
+	DerelictSDL2.load();
 	glfwInit();
+	SDL_Init(SDL_INIT_EVERYTHING);
+
 	
 	auto window = glfwCreateWindow(640, 480, "BattleAxe", null, null);
 	int width, height;
@@ -56,7 +63,9 @@ int main(){
 		player.handleControls();
 		player.handleGravity();
 
-		box1.addBox();
+		const char stone[] = "stonetexture.png";
+
+		//box1.addTexturedBox(stone, 4096, 4096);
 		box2.addBox();
 
 		//player.handleDeath();

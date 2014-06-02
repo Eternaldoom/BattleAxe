@@ -13,6 +13,7 @@
         <Path>/Users/Z/Desktop/programming/Libraries for D/DerelictUtil-master/source</Path>
         <Path>/Users/Z/Desktop/programming/Libraries for D/DerelictGL3-master/source</Path>
         <Path>/Users/Z/Desktop/programming/Libraries for D/DerelictGLFW3-master/source</Path>
+        <Path>/Users/Z/Desktop/programming/Libraries for D/DerelictSDL2-master/source</Path>
       </Includes>
     </Includes>
   </PropertyGroup>
@@ -54,8 +55,13 @@
     <Compile Include="main.d" />
     <Compile Include="battleaxe\Player.d" />
     <Compile Include="battleaxe\Box.d" />
+    <Compile Include="battleaxe\ImageLoader.d" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="battleaxe\" />
+    <Folder Include="Texures\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Texures\stonetexture.jpg" />
   </ItemGroup>
 </Project>
